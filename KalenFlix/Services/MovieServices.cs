@@ -20,5 +20,25 @@ namespace KalenFlix.Services
         {
             return await _repo.GetAllMovies();
         }
+
+        public async Task<Movie> GetMovie(int movieId)
+        {
+            return await _repo.GetMovie(movieId);
+        }
+
+        public async Task<int> AddMovie(Movie movie)
+        {
+            return await _repo.AddMovie(movie);
+        }
+
+        public void DeleteMovie(int movieId)
+        {
+            _repo.DeleteMovie(movieId);
+        }
+
+        public void UpdateMovie(Movie movie)
+        {
+            _repo.UpdateMovie(movie);
+        }
     }
 }

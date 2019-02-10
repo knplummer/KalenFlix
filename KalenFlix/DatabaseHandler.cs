@@ -9,7 +9,7 @@ namespace KalenFlix
     public class DatabaseHandler
     {
 
-        public async Task<List<DataRow>> ExecuteQuery(string storedProc, List<MySqlParameter> parameters)
+        public async Task<List<DataRow>> ExecuteQueryAsyc(string storedProc, List<MySqlParameter> parameters)
         {
             using (var db = new DatabaseConnection())
             {
@@ -24,6 +24,40 @@ namespace KalenFlix
                 return await DtEnumberable(await cmd.ExecuteReaderAsync());
             }
         }
+
+        public async Task<object> ExecuteScalarAsnyc(string storedProc, List<MySqlParameter> parameters)
+        {
+            using (var db = new DatabaseConnection())
+            {
+                await db.Connection.OpenAsync();
+                var cmd = db.Connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = storedProc;
+                foreach (var param in parameters)
+                {
+                    cmd.Parameters.Add(param);
+                }
+                return await cmd.ExecuteScalarAsync();
+            }
+        }
+
+        public async void ExecuteNonQuery(string storedProc, List<MySqlParameter> parameters)
+        {
+            using (var db = new DatabaseConnection())
+            {
+                await db.Connection.OpenAsync();
+                var cmd = db.Connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = storedProc;
+                foreach (var param in parameters)
+                {
+                    cmd.Parameters.Add(param);
+                }
+                await cmd.ExecuteNonQueryAsync();
+            }
+        }
+
+
         public async Task<List<DataRow>> DtEnumberable(DbDataReader reader)
         {
             DataTable dt = new DataTable("SqlTable");
