@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace KalenFlix
 {
-    public class DatabaseHandeler
+    public class DatabaseHandler
     {
 
         public async Task<List<DataRow>> ExecuteQuery(string storedProc, List<MySqlParameter> parameters)
@@ -44,7 +44,7 @@ namespace KalenFlix
                     for (int i = 0; i < reader.FieldCount; i++)
                     {
                         var type = reader.GetFieldType(i);
-                        r[reader.GetName(i)] = reader.GetFieldValueAsync<object>(i);
+                        r[reader.GetName(i)] = await reader.GetFieldValueAsync<object>(i);
                     }
                     rows.Add(r);
                 }

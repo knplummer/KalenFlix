@@ -26,6 +26,22 @@ namespace KalenFlix.Domain
         public Movie(DataRow r)
         {
             MovieId = Convert.ToInt32(r["movieid"]);
+            Title = r["title"].ToString();
+            ImdbLink = r["imdblink"].ToString();
+            VuduLink = r["vudulink"].ToString();
+            TrailerLink = r["trailerlink"].ToString();
+            Genre = r["genre"].ToString();
+            ReleaseYear = Convert.ToInt32(r["releaseyear"]);
+            ReleaseDate = Convert.ToDateTime(r["releasedate"]);
+            ImdbRating = Convert.ToDouble(r["imdbrating"]);
+            MpaaRating = r["mpaarating"].ToString();
+            DirectorId = Convert.ToInt32(r["directorid"]);
+            CoDirectorId = r["codirectorid"] == DBNull.Value ? null : (int?)r["codirectorid"];
+            SeriesId = r["seriesid"] == DBNull.Value ? null : (int?)r["seriesid"];
+            AddDate = Convert.ToDateTime(r["adddate"]);
+            AddUser = Convert.ToInt32(r["adduser"]);
+            ChgDate = Convert.ToDateTime(r["chgdate"]);
+            ChgUser = Convert.ToInt32(r["chguser"]);
         }
     }
 }
