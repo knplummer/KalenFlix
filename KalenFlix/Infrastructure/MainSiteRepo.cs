@@ -24,7 +24,7 @@ namespace KalenFlix.Infrastructure
             {
                 new MySqlParameter()
                 {
-                    ParameterName = "@movieid",
+                    ParameterName = "id",
                     Value = movieId
                 }
             };
@@ -39,67 +39,67 @@ namespace KalenFlix.Infrastructure
             {
                 new MySqlParameter()
                 {
-                    ParameterName = "@title",
+                    ParameterName = "title",
                     Value = m.Title
                 },
                 new MySqlParameter()
                 {
-                    ParameterName = "@imdblink",
+                    ParameterName = "imdblink",
                     Value = m.ImdbLink
                 },
                 new MySqlParameter()
                 {
-                    ParameterName = "@vudulink",
+                    ParameterName = "vudulink",
                     Value = m.VuduLink
                 },
                 new MySqlParameter()
                 {
-                    ParameterName = "@trailerlink",
+                    ParameterName = "trailerlink",
                     Value = m.TrailerLink
                 },
                 new MySqlParameter()
                 {
-                    ParameterName = "@genre",
+                    ParameterName = "genre",
                     Value = m.Genre
                 },
                 new MySqlParameter()
                 {
-                    ParameterName = "@releaseyear",
+                    ParameterName = "releaseyear",
                     Value = m.ReleaseYear
                 },
                 new MySqlParameter()
                 {
-                    ParameterName = "@imdbrating",
+                    ParameterName = "imdbrating",
                     Value = m.ImdbRating
                 },
                 new MySqlParameter()
                 {
-                    ParameterName = "@mpaarating",
+                    ParameterName = "mpaarating",
                     Value = m.MpaaRating
                 },
                 new MySqlParameter()
                 {
-                    ParameterName = "@directorid",
+                    ParameterName = "directorid",
                     Value = m.DirectorId
                 },
                 new MySqlParameter()
                 {
-                    ParameterName = "@codirectorid",
+                    ParameterName = "codirectorid",
                     Value = m.CoDirectorId
                 },
                 new MySqlParameter()
                 {
-                    ParameterName = "@seriesid",
+                    ParameterName = "seriesid",
                     Value = m.SeriesId
                 },
                 new MySqlParameter()
                 {
-                    ParameterName = "@adduser",
+                    ParameterName = "adduser",
                     Value = m.AddUser
                 },
                 new MySqlParameter()
                 {
-                    ParameterName = "@adddate",
+                    ParameterName = "adddate",
                     Value = DateTime.Now
                 }
             };
@@ -113,72 +113,72 @@ namespace KalenFlix.Infrastructure
             {
                 new MySqlParameter()
                 {
-                    ParameterName = "@movieid",
+                    ParameterName = "id",
                     Value = m.MovieId
                 },
                 new MySqlParameter()
                 {
-                    ParameterName = "@title",
+                    ParameterName = "title",
                     Value = m.Title
                 },
                 new MySqlParameter()
                 {
-                    ParameterName = "@imdblink",
+                    ParameterName = "imdblink",
                     Value = m.ImdbLink
                 },
                 new MySqlParameter()
                 {
-                    ParameterName = "@vudulink",
+                    ParameterName = "vudulink",
                     Value = m.VuduLink
                 },
                 new MySqlParameter()
                 {
-                    ParameterName = "@trailerlink",
+                    ParameterName = "trailerlink",
                     Value = m.TrailerLink
                 },
                 new MySqlParameter()
                 {
-                    ParameterName = "@genre",
+                    ParameterName = "genre",
                     Value = m.Genre
                 },
                 new MySqlParameter()
                 {
-                    ParameterName = "@releaseyear",
+                    ParameterName = "releaseyear",
                     Value = m.ReleaseYear
                 },
                 new MySqlParameter()
                 {
-                    ParameterName = "@imdbrating",
+                    ParameterName = "imdbrating",
                     Value = m.ImdbRating
                 },
                 new MySqlParameter()
                 {
-                    ParameterName = "@mpaarating",
+                    ParameterName = "mpaarating",
                     Value = m.MpaaRating
                 },
                 new MySqlParameter()
                 {
-                    ParameterName = "@directorid",
+                    ParameterName = "directorid",
                     Value = m.DirectorId
                 },
                 new MySqlParameter()
                 {
-                    ParameterName = "@codirectorid",
+                    ParameterName = "codirectorid",
                     Value = m.CoDirectorId
                 },
                 new MySqlParameter()
                 {
-                    ParameterName = "@seriesid",
+                    ParameterName = "seriesid",
                     Value = m.SeriesId
                 },
                 new MySqlParameter()
                 {
-                    ParameterName = "@adduser",
+                    ParameterName = "adduser",
                     Value = m.AddUser
                 },
                 new MySqlParameter()
                 {
-                    ParameterName = "@adddate",
+                    ParameterName = "adddate",
                     Value = DateTime.Now
                 }
             };
@@ -192,7 +192,7 @@ namespace KalenFlix.Infrastructure
             {
                 new MySqlParameter()
                 {
-                    ParameterName = "@movieid",
+                    ParameterName = "id",
                     Value = movieId
                 }
             };
