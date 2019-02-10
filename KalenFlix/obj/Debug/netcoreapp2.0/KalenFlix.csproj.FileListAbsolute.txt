@@ -1,0 +1,11 @@
+C:\Users\knplu\Documents\Code Projects\GitHub\KalenFlix\KalenFlix\KalenFlix\bin\Debug\netcoreapp2.0\KalenFlix.deps.json
+C:\Users\knplu\Documents\Code Projects\GitHub\KalenFlix\KalenFlix\KalenFlix\bin\Debug\netcoreapp2.0\KalenFlix.runtimeconfig.json
+C:\Users\knplu\Documents\Code Projects\GitHub\KalenFlix\KalenFlix\KalenFlix\bin\Debug\netcoreapp2.0\KalenFlix.runtimeconfig.dev.json
+C:\Users\knplu\Documents\Code Projects\GitHub\KalenFlix\KalenFlix\KalenFlix\bin\Debug\netcoreapp2.0\KalenFlix.dll
+C:\Users\knplu\Documents\Code Projects\GitHub\KalenFlix\KalenFlix\KalenFlix\bin\Debug\netcoreapp2.0\KalenFlix.pdb
+C:\Users\knplu\Documents\Code Projects\GitHub\KalenFlix\KalenFlix\KalenFlix\obj\Debug\netcoreapp2.0\KalenFlix.csprojResolveAssemblyReference.cache
+C:\Users\knplu\Documents\Code Projects\GitHub\KalenFlix\KalenFlix\KalenFlix\obj\Debug\netcoreapp2.0\KalenFlix.csproj.CoreCompileInputs.cache
+C:\Users\knplu\Documents\Code Projects\GitHub\KalenFlix\KalenFlix\KalenFlix\obj\Debug\netcoreapp2.0\KalenFlix.AssemblyInfoInputs.cache
+C:\Users\knplu\Documents\Code Projects\GitHub\KalenFlix\KalenFlix\KalenFlix\obj\Debug\netcoreapp2.0\KalenFlix.AssemblyInfo.cs
+C:\Users\knplu\Documents\Code Projects\GitHub\KalenFlix\KalenFlix\KalenFlix\obj\Debug\netcoreapp2.0\KalenFlix.dll
+C:\Users\knplu\Documents\Code Projects\GitHub\KalenFlix\KalenFlix\KalenFlix\obj\Debug\netcoreapp2.0\KalenFlix.pdb
