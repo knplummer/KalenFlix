@@ -8,7 +8,7 @@ namespace KalenFlix
     {
         public MySqlConnection Connection;
 
-        string connectionString = "server=127.0.0.1;port=3306;user=root;password=Uoflcards1!;database=vudu_site;";
+        string connectionString = "server=127.0.0.1;port=3306;user=root;password=serverpass;database=vudu_site;";
 
         public DatabaseConnection()
         {
