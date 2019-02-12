@@ -7,7 +7,7 @@ namespace KalenFlix.Services
 {
     public class DirectorServices
     {
-        public MainSiteRepo _repo { get; set; }
+        private MainSiteRepo _repo { get; set; }
 
         public DirectorServices()
         {
@@ -16,12 +16,12 @@ namespace KalenFlix.Services
 
         public async Task<Director> GetDirector(int directorId)
         {
-            return await _repo.GetDirector(directorId);
+            return await _repo.SelectDirector(directorId);
         }
 
         public async Task<int> AddDirector(Director director)
         {
-            return await _repo.AddDirector(director);
+            return await _repo.InsertDirector(director);
         }
 
         public void DeleteDirector(int directorId)

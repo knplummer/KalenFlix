@@ -9,18 +9,23 @@ namespace KalenFlix.Infrastructure
 {
     public class MainSiteRepo
     {
-        #region Movies
-        public async Task<List<Movie>> GetAllMovies()
+        private DatabaseHandler dbHandler;
+
+        public MainSiteRepo()
         {
-            DatabaseHandler dbHandler = new DatabaseHandler();
+            dbHandler = new DatabaseHandler();
+        }
+
+        #region Movies
+        public async Task<List<Movie>> SelectAllMovies()
+        {
             List<MySqlParameter> parameters = new List<MySqlParameter>();
-            var dt = await dbHandler.ExecuteQueryAsyc("VuduSite_GetAllMovies", parameters);
+            var dt = await dbHandler.ExecuteQueryAsync("VuduSite_MainSite__GetAllMovies", parameters);
             return dt.Select(r => new Movie(r)).ToList();
         }
 
-        public async Task<Movie> GetMovie(int movieId)
+        public async Task<Movie> SelectMovie(int movieId)
         {
-            DatabaseHandler dbHandler = new DatabaseHandler();
             List<MySqlParameter> parameters = new List<MySqlParameter>()
             {
                 new MySqlParameter()
@@ -29,13 +34,12 @@ namespace KalenFlix.Infrastructure
                     Value = movieId
                 }
             };
-            var dt = await dbHandler.ExecuteQueryAsyc("VuduSite_GetMovie", parameters);
+            var dt = await dbHandler.ExecuteQueryAsync("VuduSite_MainSite_GetMovie", parameters);
             return dt.Select(r => new Movie(r)).FirstOrDefault();
         }
 
-        public async Task<int> AddMovie(Movie m)
+        public async Task<int> InsertMovie(Movie m)
         {
-            DatabaseHandler dbHandler = new DatabaseHandler();
             List<MySqlParameter> parameters = new List<MySqlParameter>()
             {
                 new MySqlParameter()
@@ -104,12 +108,11 @@ namespace KalenFlix.Infrastructure
                     Value = DateTime.Now
                 }
             };
-            return Convert.ToInt32(await dbHandler.ExecuteScalarAsnyc("VuduSite_AddMovie", parameters));
+            return Convert.ToInt32(await dbHandler.ExecuteScalarAsync("VuduSite_MainSite_AddMovie", parameters));
         }
 
         public void UpdateMovie(Movie m)
         {
-            DatabaseHandler dbHandler = new DatabaseHandler();
             List<MySqlParameter> parameters = new List<MySqlParameter>()
             {
                 new MySqlParameter()
@@ -183,12 +186,12 @@ namespace KalenFlix.Infrastructure
                     Value = DateTime.Now
                 }
             };
-            dbHandler.ExecuteNonQuery("VuduSite_UpdateMovie", parameters);
+            dbHandler.ExecuteNonQueryAsync("VuduSite_MainSite_UpdateMovie", parameters);
         }
 
         public void DeleteMovie(int movieId)
         {
-            DatabaseHandler dbHandler = new DatabaseHandler();
+            
             List<MySqlParameter> parameters = new List<MySqlParameter>()
             {
                 new MySqlParameter()
@@ -197,14 +200,24 @@ namespace KalenFlix.Infrastructure
                     Value = movieId
                 }
             };
-            dbHandler.ExecuteNonQuery("VuduSite_DeleteMovie", parameters);
+            dbHandler.ExecuteNonQueryAsync("VuduSite_MainSite_DeleteMovie", parameters);
+        }
+
+        internal Task<List<Movie>> SelectMoviesBySeries(int seriesId)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal Task<List<Movie>> SelectMoviesByDirector(int directorId)
+        {
+            throw new NotImplementedException();
         }
         #endregion
 
         #region Directors
-        public async Task<Director> GetDirector(int directorId)
+        public async Task<Director> SelectDirector(int directorId)
         {
-            DatabaseHandler dbHandler = new DatabaseHandler();
+            
             List<MySqlParameter> parameters = new List<MySqlParameter>()
             {
                 new MySqlParameter()
@@ -213,13 +226,13 @@ namespace KalenFlix.Infrastructure
                     Value = directorId
                 }
             };
-            var dt = await dbHandler.ExecuteQueryAsyc("VuduSite_GetDirector", parameters);
+            var dt = await dbHandler.ExecuteQueryAsync("VuduSite_MainSite_GetDirector", parameters);
             return dt.Select(r => new Director(r)).FirstOrDefault();
         }
 
-        public async Task<int> AddDirector(Director d)
+        public async Task<int> InsertDirector(Director d)
         {
-            DatabaseHandler dbHandler = new DatabaseHandler();
+            
             List<MySqlParameter> parameters = new List<MySqlParameter>()
             {
                 new MySqlParameter()
@@ -249,12 +262,12 @@ namespace KalenFlix.Infrastructure
                     Value = DateTime.Now
                 }
             };
-            return Convert.ToInt32(await dbHandler.ExecuteScalarAsnyc("VuduSite_AddDirector", parameters));
+            return Convert.ToInt32(await dbHandler.ExecuteScalarAsync("VuduSite_MainSite_AddDirector", parameters));
         }
 
         public void UpdateDirector(Director d)
         {
-            DatabaseHandler dbHandler = new DatabaseHandler();
+            
             List<MySqlParameter> parameters = new List<MySqlParameter>()
             {
                 new MySqlParameter()
@@ -289,12 +302,12 @@ namespace KalenFlix.Infrastructure
                     Value = DateTime.Now
                 }
             };
-            dbHandler.ExecuteNonQuery("VuduSite_UpdateDirector", parameters);
+            dbHandler.ExecuteNonQueryAsync("VuduSite_MainSite_UpdateDirector", parameters);
         }
 
         public void DeleteDirctor(int directorId)
         {
-            DatabaseHandler dbHandler = new DatabaseHandler();
+            
             List<MySqlParameter> parameters = new List<MySqlParameter>()
             {
                 new MySqlParameter()
@@ -303,14 +316,14 @@ namespace KalenFlix.Infrastructure
                     Value = directorId
                 }
             };
-            dbHandler.ExecuteNonQuery("VuduSite_DeleteDirector", parameters);
+            dbHandler.ExecuteNonQueryAsync("VuduSite_MainSite_DeleteDirector", parameters);
         }
         #endregion
 
         #region Series
-        public async Task<Series> GetSeries(int seriesId)
+        public async Task<Series> SelectSeries(int seriesId)
         {
-            DatabaseHandler dbHandler = new DatabaseHandler();
+            
             List<MySqlParameter> parameters = new List<MySqlParameter>()
             {
                 new MySqlParameter()
@@ -319,13 +332,13 @@ namespace KalenFlix.Infrastructure
                     Value = seriesId
                 }
             };
-            var dt = await dbHandler.ExecuteQueryAsyc("VuduSite_GetSeries", parameters);
+            var dt = await dbHandler.ExecuteQueryAsync("VuduSite_MainSite_GetSeries", parameters);
             return dt.Select(r => new Series(r)).FirstOrDefault();
         }
 
-        public async Task<int> AddSeries(Series s)
+        public async Task<int> InsertSeries(Series s)
         {
-            DatabaseHandler dbHandler = new DatabaseHandler();
+            
             List<MySqlParameter> parameters = new List<MySqlParameter>()
             {
                 new MySqlParameter()
@@ -344,12 +357,12 @@ namespace KalenFlix.Infrastructure
                     Value = DateTime.Now
                 }
             };
-            return Convert.ToInt32(await dbHandler.ExecuteScalarAsnyc("VuduSite_AddSeries", parameters));
+            return Convert.ToInt32(await dbHandler.ExecuteScalarAsync("VuduSite_MainSite_AddSeries", parameters));
         }
 
         public void UpdateSeries(Series s)
         {
-            DatabaseHandler dbHandler = new DatabaseHandler();
+            
             List<MySqlParameter> parameters = new List<MySqlParameter>()
             {
                 new MySqlParameter()
@@ -373,12 +386,12 @@ namespace KalenFlix.Infrastructure
                     Value = DateTime.Now
                 }
             };
-            dbHandler.ExecuteNonQuery("VuduSite_UpdateSeris", parameters);
+            dbHandler.ExecuteNonQueryAsync("VuduSite_MainSite_UpdateSeris", parameters);
         }
 
         public void DeleteSeries(int seriesId)
         {
-            DatabaseHandler dbHandler = new DatabaseHandler();
+            
             List<MySqlParameter> parameters = new List<MySqlParameter>()
             {
                 new MySqlParameter()
@@ -387,14 +400,14 @@ namespace KalenFlix.Infrastructure
                     Value = seriesId
                 }
             };
-            dbHandler.ExecuteNonQuery("VuduSite_DeleteSeries", parameters);
+            dbHandler.ExecuteNonQueryAsync("VuduSite_MainSite_DeleteSeries", parameters);
         }
         #endregion
 
         #region Rating
-        public async Task<Rating> GetRating(int ratingId)
+        public async Task<Rating> SelectRating(int ratingId)
         {
-            DatabaseHandler dbHandler = new DatabaseHandler();
+            
             List<MySqlParameter> parameters = new List<MySqlParameter>()
             {
                 new MySqlParameter()
@@ -403,13 +416,13 @@ namespace KalenFlix.Infrastructure
                     Value = ratingId
                 }
             };
-            var dt = await dbHandler.ExecuteQueryAsyc("VuduSite_GetRating", parameters);
+            var dt = await dbHandler.ExecuteQueryAsync("VuduSite_MainSite_GetRating", parameters);
             return dt.Select(r => new Rating(r)).FirstOrDefault();
         }
 
-        public async Task<int> AddRating(Rating r)
+        public async Task<int> InsertRating(Rating r)
         {
-            DatabaseHandler dbHandler = new DatabaseHandler();
+            
             List<MySqlParameter> parameters = new List<MySqlParameter>()
             {
                 new MySqlParameter()
@@ -443,12 +456,12 @@ namespace KalenFlix.Infrastructure
                     Value = DateTime.Now
                 }
             };
-            return Convert.ToInt32(await dbHandler.ExecuteScalarAsnyc("VuduSite_AddRating", parameters));
+            return Convert.ToInt32(await dbHandler.ExecuteScalarAsync("VuduSite_MainSite_AddRating", parameters));
         }
 
         public void UpdateRating(Rating r)
         {
-            DatabaseHandler dbHandler = new DatabaseHandler();
+            
             List<MySqlParameter> parameters = new List<MySqlParameter>()
             {
                 new MySqlParameter()
@@ -487,12 +500,12 @@ namespace KalenFlix.Infrastructure
                     Value = DateTime.Now
                 }
             };
-            dbHandler.ExecuteNonQuery("VuduSite_UpdateRating", parameters);
+            dbHandler.ExecuteNonQueryAsync("VuduSite_MainSite_UpdateRating", parameters);
         }
 
         public void DeleteRating(int ratingId)
         {
-            DatabaseHandler dbHandler = new DatabaseHandler();
+            
             List<MySqlParameter> parameters = new List<MySqlParameter>()
             {
                 new MySqlParameter()
@@ -501,7 +514,12 @@ namespace KalenFlix.Infrastructure
                     Value = ratingId
                 }
             };
-            dbHandler.ExecuteNonQuery("VuduSite_DeleteRating", parameters);
+            dbHandler.ExecuteNonQueryAsync("VuduSite_MainSite_DeleteRating", parameters);
+        }
+
+        internal Task<List<Rating>> SelectUserRatings(int userId)
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

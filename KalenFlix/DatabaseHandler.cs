@@ -8,8 +8,7 @@ namespace KalenFlix
 {
     public class DatabaseHandler
     {
-
-        public async Task<List<DataRow>> ExecuteQueryAsyc(string storedProc, List<MySqlParameter> parameters)
+        public async Task<List<DataRow>> ExecuteQueryAsync(string storedProc, List<MySqlParameter> parameters)
         {
             using (var db = new DatabaseConnection())
             {
@@ -25,7 +24,7 @@ namespace KalenFlix
             }
         }
 
-        public async Task<object> ExecuteScalarAsnyc(string storedProc, List<MySqlParameter> parameters)
+        public async Task<object> ExecuteScalarAsync(string storedProc, List<MySqlParameter> parameters)
         {
             using (var db = new DatabaseConnection())
             {
@@ -41,7 +40,7 @@ namespace KalenFlix
             }
         }
 
-        public async void ExecuteNonQuery(string storedProc, List<MySqlParameter> parameters)
+        public async void ExecuteNonQueryAsync(string storedProc, List<MySqlParameter> parameters)
         {
             using (var db = new DatabaseConnection())
             {
