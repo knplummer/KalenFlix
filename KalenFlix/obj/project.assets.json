@@ -13311,11 +13311,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\knplu\\Documents\\Code Projects\\GitHub\\KalenFlix\\KalenFlix\\KalenFlix\\KalenFlix.csproj",
+      "projectUniqueName": "C:\\Users\\knplu\\Documents\\Code Projects\\GitHub\\KalenFlix\\BackEnd\\KalenFlix\\KalenFlix.csproj",
       "projectName": "KalenFlix",
-      "projectPath": "C:\\Users\\knplu\\Documents\\Code Projects\\GitHub\\KalenFlix\\KalenFlix\\KalenFlix\\KalenFlix.csproj",
+      "projectPath": "C:\\Users\\knplu\\Documents\\Code Projects\\GitHub\\KalenFlix\\BackEnd\\KalenFlix\\KalenFlix.csproj",
       "packagesPath": "C:\\Users\\knplu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\knplu\\Documents\\Code Projects\\GitHub\\KalenFlix\\KalenFlix\\KalenFlix\\obj\\",
+      "outputPath": "C:\\Users\\knplu\\Documents\\Code Projects\\GitHub\\KalenFlix\\BackEnd\\KalenFlix\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",

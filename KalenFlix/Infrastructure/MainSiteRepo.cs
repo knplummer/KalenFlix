@@ -20,7 +20,7 @@ namespace KalenFlix.Infrastructure
         public async Task<List<Movie>> SelectAllMovies()
         {
             List<MySqlParameter> parameters = new List<MySqlParameter>();
-            var dt = await dbHandler.ExecuteQueryAsync("VuduSite_MainSite__GetAllMovies", parameters);
+            var dt = await dbHandler.ExecuteQueryAsync("VuduSite_MainSite_GetAllMovies", parameters);
             return dt.Select(r => new Movie(r)).ToList();
         }
 

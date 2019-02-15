@@ -21,7 +21,7 @@ namespace KalenFlix
                     cmd.Parameters.Add(param);
                 }
                 return await DtEnumberable(await cmd.ExecuteReaderAsync());
-            }
+            } 
         }
 
         public async Task<object> ExecuteScalarAsync(string storedProc, List<MySqlParameter> parameters)
