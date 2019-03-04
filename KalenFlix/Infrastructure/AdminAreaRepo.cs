@@ -189,9 +189,18 @@ namespace KalenFlix.Infrastructure
             dbHandler.ExecuteNonQueryAsync("VuduSite_AdminArea_DeleteDevice", parameters);
         }
 
-        internal Task<List<Device>> SelectUserDevices(int userId)
+        internal async Task<List<Device>> SelectUserDevices(int userId)
         {
-            throw new NotImplementedException();
+            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            {
+                new MySqlParameter()
+                {
+                    ParameterName = "id",
+                    Value = userId
+                }
+            };
+            var db = await dbHandler.ExecuteQueryAsync("VuduSite_AdminArea_GetUserDevices", parameters);
+            return db.Select(r => new Device(r)).ToList();
         }
         #endregion
     }
