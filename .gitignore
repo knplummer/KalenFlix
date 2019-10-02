@@ -40,3 +40,7 @@ Thumbs.db
 
 # directories
 .vs/
+KalenFlix/obj/KalenFlix.csproj.nuget.dgspec.json
+KalenFlix/obj/KalenFlix.csproj.nuget.g.targets
+KalenFlix/obj/KalenFlix.csproj.nuget.g.props
+KalenFlix/obj/project.assets.json
