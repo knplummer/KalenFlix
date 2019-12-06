@@ -50,5 +50,11 @@ namespace KalenFlix.Services
         {
             return await _repo.SelectMoviesByDirector(directorId);
         }
+
+        public async Task<List<Movie>> GetMoviesByGenre(int genreId)
+        {
+            return await _repo.SelectMoviesByGenre(genreId);
+        }
+
     }
 }

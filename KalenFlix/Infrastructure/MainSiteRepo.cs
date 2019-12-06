@@ -111,6 +111,7 @@ namespace KalenFlix.Infrastructure
             return Convert.ToInt32(await dbHandler.ExecuteScalarAsync("VuduSite_MainSite_AddMovie", parameters));
         }
 
+
         public void UpdateMovie(Movie m)
         {
             List<MySqlParameter> parameters = new List<MySqlParameter>()
@@ -521,6 +522,15 @@ namespace KalenFlix.Infrastructure
         {
             throw new NotImplementedException();
         }
+        #endregion
+
+        #region Genre
+        internal Task<List<Movie>> SelectMoviesByGenre(int genreId)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal
         #endregion
     }
 }
