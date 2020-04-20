@@ -5,13 +5,13 @@ using KalenFlix.Infrastructure;
 
 namespace KalenFlix.Services
 {
-    public class DirectorServices
+    public class DirectorService : IDirectorService
     {
-        private MainSiteRepo _repo { get; set; }
+        private IMainSiteRepo _repo { get; set; }
 
-        public DirectorServices()
+        public DirectorService(IMainSiteRepo repo)
         {
-            _repo = new MainSiteRepo();
+            _repo = repo;
         }
 
         public async Task<Director> GetDirector(int directorId)

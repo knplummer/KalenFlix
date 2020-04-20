@@ -7,14 +7,14 @@ using KalenFlix.Services;
 namespace KalenFlix.Controllers
 {
     [Produces("application/json")]
-    [Route("api/movies")]
+    [Route("api/[controller]/[action]")]
     public class HomeController : Controller
     {
-        public MovieServices movieServices;
+        public MovieService movieServices;
 
         public HomeController()
         {
-            movieServices = new MovieServices();
+            movieServices = new MovieService();
         }
 
         [HttpGet]

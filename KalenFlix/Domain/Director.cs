@@ -1,31 +1,26 @@
 ﻿using System;
 using System.Data;
+using KalenFlix.Annotations;
 
 namespace KalenFlix.Domain
 {
     public class Director
     {
+        [DataColumn("Director_ID")]
         public int DirectorId { get; set; }
+        [DataColumn("Last_Name")]
         public string LastName { get; set; }
+        [DataColumn("First_Name")]
         public string FirstName { get; set; }
+        [DataColumn("Imdb_Link")]
         public string ImdbLink { get; set; }
+        [DataColumn("Add_Date")]
         public DateTime AddDate { get; set; }
+        [DataColumn("Add_User")]
         public int AddUser { get; set; }
-        public DateTime ChgDate { get; set; }
-        public int ChgUser { get; set; }
-
-        public Director() { }
-
-        public Director(DataRow r)
-        {
-            DirectorId = Convert.ToInt32(r["directorid"]);
-            LastName = r["lastname"].ToString();
-            FirstName = r["firstname"].ToString();
-            ImdbLink = r["imdblink"].ToString();
-            AddDate = Convert.ToDateTime(r["adddate"]);
-            AddUser = Convert.ToInt32(r["adduser"]);
-            ChgDate = Convert.ToDateTime(r["chgdate"]);
-            ChgUser = Convert.ToInt32(r["chguser"]);
-        }
+        [DataColumn("Chg_Date")]
+        public DateTime? ChgDate { get; set; }
+        [DataColumn("Chg_Date")]
+        public int? ChgUser { get; set; }
     }
 }

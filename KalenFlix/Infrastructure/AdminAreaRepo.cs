@@ -1,206 +1,203 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using KalenFlix.Domain;
+using KalenFlix.Database;
 
 namespace KalenFlix.Infrastructure
 {
-    public class AdminAreaRepo
+    public class AdminAreaRepo : IAdminAreaRepo
     {
-        private DatabaseHandler dbHandler { get; set; }
+        private IDatabaseHandler _dbHandler { get; set; }
         
-        public AdminAreaRepo()
+        public AdminAreaRepo(IDatabaseHandler dbHandler)
         {
-            dbHandler = new DatabaseHandler();
+            dbHandler = _dbHandler;
         }
 
         #region profile
         public async Task<User> SelectUser(int userId)
         {
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            List<SqlParameter> parameters = new List<SqlParameter>()
             {
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "id",
                     Value = userId
                 }
             };
-            var dt = await dbHandler.ExecuteQueryAsync("VuduSite_AdminArea_GetUser", parameters);
-            return dt.Select(r => new User(r)).FirstOrDefault();
+            return new DataMapper<User>().Map(await _dbHandler.ExecuteSingleRowQueryAsync("VuduSite_AdminArea_GetUser", parameters));
         }
 
         public void UpdateUser(User u)
         {
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            List<SqlParameter> parameters = new List<SqlParameter>()
             {
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "id",
                     Value = u.UserId
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "lastname",
                     Value = u.LastName
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "firstname",
                     Value = u.FirstName
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "password",
                     Value = u.Password
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "chguser",
                     Value = u.ChgUser
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "chgdate",
                     Value = DateTime.Now
                 }
             };
-            dbHandler.ExecuteNonQueryAsync("VuduSite_AdminArea_UpdateUser", parameters);
+            _dbHandler.ExecuteNonQueryAsync("VuduSite_AdminArea_UpdateUser", parameters);
         }
 
         public void DeleteUser(int userId)
         {
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            List<SqlParameter> parameters = new List<SqlParameter>()
             {
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "id",
                     Value = userId
                 }
             };
-            dbHandler.ExecuteNonQueryAsync("VuduSite_AdminArea_DeleteUser", parameters);
+            _dbHandler.ExecuteNonQueryAsync("VuduSite_AdminArea_DeleteUser", parameters);
         }
         #endregion
 
         #region Devices
-        public async Task<List<Device>> SelectAllDevices()
+        public async Task<IEnumerable<Device>> SelectAllDevices()
         {
-            List<MySqlParameter> parameters = new List<MySqlParameter>();
-            var dt = await dbHandler.ExecuteQueryAsync("VuduSite_AdminArea_GeAllDevices", parameters);
-            return dt.Select(r => new Device(r)).ToList();
+            List<SqlParameter> parameters = new List<SqlParameter>();
+            return new DataMapper<Device>().Map(await _dbHandler.ExecuteQueryAsync("VuduSite_AdminArea_GeAllDevices", parameters));
         }
 
         public async Task<Device> GetDevice(int deviceId)
         {
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            List<SqlParameter> parameters = new List<SqlParameter>()
             {
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "id",
                     Value = deviceId
                 }
             };
-            var dt = await dbHandler.ExecuteQueryAsync("VuduSite_AdminArea_GetDevice", parameters);
-            return dt.Select(r => new Device(r)).FirstOrDefault();
+            return new DataMapper<Device>().Map(await _dbHandler.ExecuteSingleRowQueryAsync("VuduSite_AdminArea_GetDevice", parameters));
         }
 
         public async Task<int> InsertDevice(Device d)
         {
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            List<SqlParameter> parameters = new List<SqlParameter>()
             {
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "userid",
                     Value = d.UserId
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "devicename",
                     Value = d.DeviceName
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "devicetype",
                     Value = d.DeviceType
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "adduser",
                     Value = d.AddUser
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "adddate",
                     Value = DateTime.Now
                 }
             };
-            return Convert.ToInt32(await dbHandler.ExecuteScalarAsync("VuduSite_AdminArea_AddDevice", parameters));
+            return Convert.ToInt32(await _dbHandler.ExecuteScalarAsync("VuduSite_AdminArea_AddDevice", parameters));
         }
 
         public void UpdateDevice(Device d)
         {
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            List<SqlParameter> parameters = new List<SqlParameter>()
             {
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "id",
                     Value = d.DeviceId
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "userid",
                     Value = d.UserId
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "devicename",
                     Value = d.DeviceName
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "devicetype",
                     Value = d.DeviceType
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "chguser",
                     Value = d.ChgUser
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "chgdate",
                     Value = DateTime.Now
                 }
             };
-            dbHandler.ExecuteNonQueryAsync("VuduSite_AdminArea_UpdateDevice", parameters);
+            _dbHandler.ExecuteNonQueryAsync("VuduSite_AdminArea_UpdateDevice", parameters);
         }
 
         public void DeleteDevice(int deviceId)
         {
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            List<SqlParameter> parameters = new List<SqlParameter>()
             {
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "id",
                     Value = deviceId
                 }
             };
-            dbHandler.ExecuteNonQueryAsync("VuduSite_AdminArea_DeleteDevice", parameters);
+            _dbHandler.ExecuteNonQueryAsync("VuduSite_AdminArea_DeleteDevice", parameters);
         }
 
-        internal async Task<List<Device>> SelectUserDevices(int userId)
+        internal async Task<IEnumerable<Device>> SelectUserDevices(int userId)
         {
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            List<SqlParameter> parameters = new List<SqlParameter>()
             {
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "id",
                     Value = userId
                 }
             };
-            var db = await dbHandler.ExecuteQueryAsync("VuduSite_AdminArea_GetUserDevices", parameters);
-            return db.Select(r => new Device(r)).ToList();
+            return new DataMapper<Device>().Map(await _dbHandler.ExecuteQueryAsync("VuduSite_AdminArea_GetUserDevices", parameters));
         }
         #endregion
     }

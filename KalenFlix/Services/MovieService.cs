@@ -7,16 +7,16 @@ using KalenFlix.Domain;
 
 namespace KalenFlix.Services
 {
-    public class MovieServices
+    public class MovieService : IMovieService
     {
-        private MainSiteRepo _repo { get; set; }
+        private IMainSiteRepo _repo;
 
-        public MovieServices()
+        public MovieService(IMainSiteRepo repo)
         {
-            _repo = new MainSiteRepo();
+            _repo = repo;
         }
 
-        public async Task<List<Movie>> GetAllMovies()
+        public async Task<IEnumerable<Movie>> GetAllMovies()
         {
             return await _repo.SelectAllMovies();
         }
@@ -41,17 +41,17 @@ namespace KalenFlix.Services
             _repo.UpdateMovie(movie);
         }
 
-        public async Task<List<Movie>> GetMoviesBySeries(int seriesId)
+        public async Task<IEnumerable<Movie>> GetMoviesBySeries(int seriesId)
         {
             return await _repo.SelectMoviesBySeries(seriesId);
         }
 
-        public async Task<List<Movie>> GetMoviesByDirector(int directorId)
+        public async Task<IEnumerable<Movie>> GetMoviesByDirector(int directorId)
         {
             return await _repo.SelectMoviesByDirector(directorId);
         }
 
-        public async Task<List<Movie>> GetMoviesByGenre(int genreId)
+        public async Task<IEnumerable<Movie>> GetMoviesByGenre(int genreId)
         {
             return await _repo.SelectMoviesByGenre(genreId);
         }

@@ -7,14 +7,14 @@ using KalenFlix.Services;
 namespace KalenFlix.Controllers
 {
     [Produces("application/json")]
-    [Route("api/profile")]
+    [Route("api/[controller]/[action]")]
     public class ProfileController : Controller
     {
-        private ProfileServices profileServices;
+        private ProfileService profileServices;
 
         public ProfileController()
         {
-            profileServices = new ProfileServices();
+            profileServices = new ProfileService();
         }
 
         [HttpGet("{user/id}")]

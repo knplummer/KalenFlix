@@ -1,47 +1,41 @@
 ﻿using System;
-using System.Data;
+using KalenFlix.Annotations;
 
 namespace KalenFlix.Domain
 {
     public class Movie
     {
+        [DataColumn("Movie_ID")]
         public int MovieId { get; set; }
+        [DataColumn("Title")]
         public string Title { get; set; }
+        [DataColumn("Imdb_Link")]
         public string ImdbLink { get; set; }
+        [DataColumn("Vudu_Link")]
         public string VuduLink { get; set; }
+        [DataColumn("Trailer_Link")]
         public string TrailerLink { get; set; }
-        public string Genre { get; set; }
+        [DataColumn("Release_Year")]
         public int ReleaseYear { get; set; }
+        [DataColumn("Release_Date")]
         public DateTime ReleaseDate { get; set; }
+        [DataColumn("Imdb_Rating")]
         public double ImdbRating { get; set; }
+        [DataColumn("Mpaa_Rating")]
         public string MpaaRating { get; set; }
+        [DataColumn("Director_ID")]
         public int DirectorId { get; set; }
+        [DataColumn("Co_Directore_ID")]
         public int? CoDirectorId { get; set; }
+        [DataColumn("Series_ID")]
         public int? SeriesId { get; set; }
+        [DataColumn("Add_Date")]
         public DateTime AddDate { get; set; }
+        [DataColumn("Add_User")]
         public int AddUser { get; set; }
-        public DateTime ChgDate { get; set; }
-        public int ChgUser { get; set; }
-
-        public Movie(DataRow r)
-        {
-            MovieId = Convert.ToInt32(r["movieid"]);
-            Title = r["title"].ToString();
-            ImdbLink = r["imdblink"].ToString();
-            VuduLink = r["vudulink"].ToString();
-            TrailerLink = r["trailerlink"].ToString();
-            Genre = r["genre"].ToString();
-            ReleaseYear = Convert.ToInt32(r["releaseyear"]);
-            ReleaseDate = Convert.ToDateTime(r["releasedate"]);
-            ImdbRating = Convert.ToDouble(r["imdbrating"]);
-            MpaaRating = r["mpaarating"].ToString();
-            DirectorId = Convert.ToInt32(r["directorid"]);
-            CoDirectorId = r["codirectorid"] == DBNull.Value ? null : (int?)r["codirectorid"];
-            SeriesId = r["seriesid"] == DBNull.Value ? null : (int?)r["seriesid"];
-            AddDate = Convert.ToDateTime(r["adddate"]);
-            AddUser = Convert.ToInt32(r["adduser"]);
-            ChgDate = Convert.ToDateTime(r["chgdate"]);
-            ChgUser = Convert.ToInt32(r["chguser"]);
-        }
+        [DataColumn("Chg_Date")]
+        public DateTime? ChgDate { get; set; }
+        [DataColumn("Chg_User")]
+        public int? ChgUser { get; set; }
     }
 }

@@ -1,31 +1,26 @@
 ﻿using System;
 using System.Data;
+using KalenFlix.Annotations;
 
 namespace KalenFlix.Domain
 {
     public class Device
     {
+        [DataColumn("Device_ID")]
         public int DeviceId { get; set; }
+        [DataColumn("User_ID")]
         public int UserId { get; set; }
+        [DataColumn("Device_Name")]
         public string DeviceName { get; set; }
+        [DataColumn("Device_Type")]
         public string DeviceType { get; set; }
+        [DataColumn("Add_Date")]
         public DateTime AddDate { get; set; }
+        [DataColumn("Add_User")]
         public int AddUser { get; set; }
-        public DateTime ChgDate { get; set; }
-        public int ChgUser { get; set; }
-
-        public Device() { }
-
-        public Device(DataRow r)
-        {
-            DeviceId = Convert.ToInt32(r["deviceid"]);
-            UserId = Convert.ToInt32(r["userid"]);
-            DeviceName = r["devicename"].ToString();
-            DeviceType = r["devicetype"].ToString();
-            AddDate = Convert.ToDateTime(r["adddate"]);
-            AddUser = Convert.ToInt32(r["adduser"]);
-            ChgDate = Convert.ToDateTime(r["chgdate"]);
-            ChgUser = Convert.ToInt32(r["chguser"]);
-        }
+        [DataColumn("Chg_Date")]
+        public DateTime? ChgDate { get; set; }
+        [DataColumn("Chg_User")]
+        public int? ChgUser { get; set; }
     }
 }

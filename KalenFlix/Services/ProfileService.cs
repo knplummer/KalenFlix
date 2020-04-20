@@ -7,15 +7,15 @@ using KalenFlix.Infrastructure;
 
 namespace KalenFlix.Services
 {
-    public class ProfileServices
+    public class ProfileService : IProfileService
     {
-        private MainSiteRepo _mainRepo;
-        private AdminAreaRepo _adminRepo;
+        private IMainSiteRepo _mainRepo;
+        private IAdminAreaRepo _adminRepo;
 
-        public ProfileServices()
+        public ProfileService(IMainSiteRepo mainSiteRepo, IAdminAreaRepo adminAreaRepo)
         {
-            _mainRepo = new MainSiteRepo();
-            _adminRepo = new AdminAreaRepo();
+            _mainRepo = mainSiteRepo;
+            _adminRepo = adminAreaRepo;
         }
 
         public async Task<User> GetUserProfile(int userId)

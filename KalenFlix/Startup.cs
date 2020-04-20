@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using KalenFlix.Database;
+using KalenFlix.Infrastructure;
+using KalenFlix.Services;
 
 
 namespace KalenFlix
@@ -23,6 +26,12 @@ namespace KalenFlix
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddScoped<IDatabaseHandler, DatabaseHandler>();
+            services.AddScoped<IAdminAreaRepo, AdminAreaRepo>();
+            services.AddScoped<IMainSiteRepo, MainSiteRepo>();
+            services.AddScoped<IDirectorService, DirectorService>();
+            services.AddScoped<IMovieService, MovieService>();
+            services.AddScoped<IProfileService, ProfileService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

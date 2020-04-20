@@ -3,213 +3,210 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using KalenFlix.Domain;
-using MySql.Data.MySqlClient;
+using KalenFlix.Database;
+using System.Data.SqlClient;
 
 namespace KalenFlix.Infrastructure
 {
-    public class MainSiteRepo
+    public class MainSiteRepo : IMainSiteRepo
     {
-        private DatabaseHandler dbHandler;
+        private IDatabaseHandler _dbHandler;
 
-        public MainSiteRepo()
+        public MainSiteRepo(IDatabaseHandler databaseHandler)
         {
-            dbHandler = new DatabaseHandler();
+            _dbHandler = databaseHandler;
         }
 
         #region Movies
-        public async Task<List<Movie>> SelectAllMovies()
+        public async Task<IEnumerable<Movie>> SelectAllMovies()
         {
-            List<MySqlParameter> parameters = new List<MySqlParameter>();
-            var dt = await dbHandler.ExecuteQueryAsync("VuduSite_MainSite_GetAllMovies", parameters);
-            return dt.Select(r => new Movie(r)).ToList();
+            List<SqlParameter> parameters = new List<SqlParameter>();
+            return new DataMapper<Movie>().Map(await _dbHandler.ExecuteQueryAsync("VuduSite_MainSite_GetAllMovies", parameters));
         }
 
         public async Task<Movie> SelectMovie(int movieId)
         {
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            List<SqlParameter> parameters = new List<SqlParameter>()
             {
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "id",
                     Value = movieId
                 }
             };
-            var dt = await dbHandler.ExecuteQueryAsync("VuduSite_MainSite_GetMovie", parameters);
-            return dt.Select(r => new Movie(r)).FirstOrDefault();
+            return new DataMapper<Movie>().Map(await _dbHandler.ExecuteSingleRowQueryAsync("VuduSite_MainSite_GetMovie", parameters));
         }
 
         public async Task<int> InsertMovie(Movie m)
         {
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            List<SqlParameter> parameters = new List<SqlParameter>()
             {
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "title",
                     Value = m.Title
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "imdblink",
                     Value = m.ImdbLink
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "vudulink",
                     Value = m.VuduLink
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "trailerlink",
                     Value = m.TrailerLink
                 },
-                new MySqlParameter()
-                {
-                    ParameterName = "genre",
-                    Value = m.Genre
-                },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "releaseyear",
                     Value = m.ReleaseYear
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "imdbrating",
                     Value = m.ImdbRating
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "mpaarating",
                     Value = m.MpaaRating
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "directorid",
                     Value = m.DirectorId
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "codirectorid",
                     Value = m.CoDirectorId
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "seriesid",
                     Value = m.SeriesId
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "adduser",
                     Value = m.AddUser
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "adddate",
                     Value = DateTime.Now
                 }
             };
-            return Convert.ToInt32(await dbHandler.ExecuteScalarAsync("VuduSite_MainSite_AddMovie", parameters));
+            return Convert.ToInt32(await _dbHandler.ExecuteScalarAsync("VuduSite_MainSite_AddMovie", parameters));
         }
 
 
         public void UpdateMovie(Movie m)
         {
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            List<SqlParameter> parameters = new List<SqlParameter>()
             {
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "id",
                     Value = m.MovieId
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "title",
                     Value = m.Title
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "imdblink",
                     Value = m.ImdbLink
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "vudulink",
                     Value = m.VuduLink
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "trailerlink",
                     Value = m.TrailerLink
                 },
-                new MySqlParameter()
-                {
-                    ParameterName = "genre",
-                    Value = m.Genre
-                },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "releaseyear",
                     Value = m.ReleaseYear
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "imdbrating",
                     Value = m.ImdbRating
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "mpaarating",
                     Value = m.MpaaRating
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "directorid",
                     Value = m.DirectorId
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "codirectorid",
                     Value = m.CoDirectorId
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "seriesid",
                     Value = m.SeriesId
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "chguser",
                     Value = m.AddUser
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "chgdate",
                     Value = DateTime.Now
                 }
             };
-            dbHandler.ExecuteNonQueryAsync("VuduSite_MainSite_UpdateMovie", parameters);
+            _dbHandler.ExecuteNonQueryAsync("VuduSite_MainSite_UpdateMovie", parameters);
         }
 
         public void DeleteMovie(int movieId)
         {
             
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            List<SqlParameter> parameters = new List<SqlParameter>()
             {
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "id",
                     Value = movieId
                 }
             };
-            dbHandler.ExecuteNonQueryAsync("VuduSite_MainSite_DeleteMovie", parameters);
+            _dbHandler.ExecuteNonQueryAsync("VuduSite_MainSite_DeleteMovie", parameters);
         }
 
-        internal Task<List<Movie>> SelectMoviesBySeries(int seriesId)
+        public async Task<IEnumerable<Movie>> SelectMoviesBySeries(int seriesId)
         {
-            throw new NotImplementedException();
+            List<SqlParameter> parameters = new List<SqlParameter>()
+            {
+                new SqlParameter()
+                {
+                    ParameterName = "seriesId",
+                    Value = seriesId
+                }
+            };
+            return new DataMapper<Movie>().Map(await _dbHandler.ExecuteQueryAsync("VuduSite_MainSite_SelectMoviesBySeries", parameters));
         }
 
-        internal Task<List<Movie>> SelectMoviesByDirector(int directorId)
+        internal Task<IEnumerable<Movie>> SelectMoviesByDirector(int directorId)
         {
             throw new NotImplementedException();
         }
@@ -219,105 +216,104 @@ namespace KalenFlix.Infrastructure
         public async Task<Director> SelectDirector(int directorId)
         {
             
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            List<SqlParameter> parameters = new List<SqlParameter>()
             {
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "id",
                     Value = directorId
                 }
             };
-            var dt = await dbHandler.ExecuteQueryAsync("VuduSite_MainSite_GetDirector", parameters);
-            return dt.Select(r => new Director(r)).FirstOrDefault();
+            return new DataMapper<Director>().Map(await _dbHandler.ExecuteSingleRowQueryAsync("VuduSite_MainSite_GetDirector", parameters));
         }
 
         public async Task<int> InsertDirector(Director d)
         {
             
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            List<SqlParameter> parameters = new List<SqlParameter>()
             {
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "lastname",
                     Value = d.LastName
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "firstname",
                     Value = d.FirstName
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "imdblink",
                     Value = d.ImdbLink
                 },
 
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "adduser",
                     Value = d.AddUser
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "adddate",
                     Value = DateTime.Now
                 }
             };
-            return Convert.ToInt32(await dbHandler.ExecuteScalarAsync("VuduSite_MainSite_AddDirector", parameters));
+            return Convert.ToInt32(await _dbHandler.ExecuteScalarAsync("VuduSite_MainSite_AddDirector", parameters));
         }
 
         public void UpdateDirector(Director d)
         {
             
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            List<SqlParameter> parameters = new List<SqlParameter>()
             {
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "id",
                     Value = d.DirectorId
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "lastname",
                     Value = d.LastName
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "firstname",
                     Value = d.FirstName
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "imdblink",
                     Value = d.ImdbLink
                 },
 
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "chguser",
                     Value = d.AddUser
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "chgdate",
                     Value = DateTime.Now
                 }
             };
-            dbHandler.ExecuteNonQueryAsync("VuduSite_MainSite_UpdateDirector", parameters);
+            _dbHandler.ExecuteNonQueryAsync("VuduSite_MainSite_UpdateDirector", parameters);
         }
 
         public void DeleteDirctor(int directorId)
         {
             
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            List<SqlParameter> parameters = new List<SqlParameter>()
             {
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "id",
                     Value = directorId
                 }
             };
-            dbHandler.ExecuteNonQueryAsync("VuduSite_MainSite_DeleteDirector", parameters);
+            _dbHandler.ExecuteNonQueryAsync("VuduSite_MainSite_DeleteDirector", parameters);
         }
         #endregion
 
@@ -325,83 +321,82 @@ namespace KalenFlix.Infrastructure
         public async Task<Series> SelectSeries(int seriesId)
         {
             
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            List<SqlParameter> parameters = new List<SqlParameter>()
             {
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "id",
                     Value = seriesId
                 }
             };
-            var dt = await dbHandler.ExecuteQueryAsync("VuduSite_MainSite_GetSeries", parameters);
-            return dt.Select(r => new Series(r)).FirstOrDefault();
+            return new DataMapper<Series>().Map(await _dbHandler.ExecuteSingleRowQueryAsync("VuduSite_MainSite_GetSeries", parameters));
         }
 
         public async Task<int> InsertSeries(Series s)
         {
             
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            List<SqlParameter> parameters = new List<SqlParameter>()
             {
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "seriestitle",
                     Value = s.SeriesTitle
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "adduser",
                     Value = s.AddUser
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "adddate",
                     Value = DateTime.Now
                 }
             };
-            return Convert.ToInt32(await dbHandler.ExecuteScalarAsync("VuduSite_MainSite_AddSeries", parameters));
+            return Convert.ToInt32(await _dbHandler.ExecuteScalarAsync("VuduSite_MainSite_AddSeries", parameters));
         }
 
         public void UpdateSeries(Series s)
         {
             
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            List<SqlParameter> parameters = new List<SqlParameter>()
             {
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "seriesid",
                     Value = s.SeriesId
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "seriestitl",
                     Value = s.SeriesTitle
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "chguser",
                     Value = s.AddUser
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "chgdate",
                     Value = DateTime.Now
                 }
             };
-            dbHandler.ExecuteNonQueryAsync("VuduSite_MainSite_UpdateSeris", parameters);
+            _dbHandler.ExecuteNonQueryAsync("VuduSite_MainSite_UpdateSeris", parameters);
         }
 
         public void DeleteSeries(int seriesId)
         {
             
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            List<SqlParameter> parameters = new List<SqlParameter>()
             {
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "id",
                     Value = seriesId
                 }
             };
-            dbHandler.ExecuteNonQueryAsync("VuduSite_MainSite_DeleteSeries", parameters);
+            _dbHandler.ExecuteNonQueryAsync("VuduSite_MainSite_DeleteSeries", parameters);
         }
         #endregion
 
@@ -409,128 +404,125 @@ namespace KalenFlix.Infrastructure
         public async Task<Rating> SelectRating(int ratingId)
         {
             
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            List<SqlParameter> parameters = new List<SqlParameter>()
             {
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "id",
                     Value = ratingId
                 }
             };
-            var dt = await dbHandler.ExecuteQueryAsync("VuduSite_MainSite_GetRating", parameters);
-            return dt.Select(r => new Rating(r)).FirstOrDefault();
+           return new DataMapper<Rating>().Map(await _dbHandler.ExecuteSingleRowQueryAsync("VuduSite_MainSite_GetRating", parameters));
         }
 
         public async Task<int> InsertRating(Rating r)
         {
             
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            List<SqlParameter> parameters = new List<SqlParameter>()
             {
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "movieid",
                     Value = r.MovieId
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "userid",
                     Value = r.UserId
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "rating",
                     Value = r.RatingValue
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "comments",
                     Value = r.Comments
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "adduser",
                     Value = r.AddUser
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "adddate",
                     Value = DateTime.Now
                 }
             };
-            return Convert.ToInt32(await dbHandler.ExecuteScalarAsync("VuduSite_MainSite_AddRating", parameters));
+            return Convert.ToInt32(await _dbHandler.ExecuteScalarAsync("VuduSite_MainSite_AddRating", parameters));
         }
 
         public void UpdateRating(Rating r)
         {
             
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            List<SqlParameter> parameters = new List<SqlParameter>()
             {
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "ratingid",
                     Value = r.RatingId
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "movieid",
                     Value = r.MovieId
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "userid",
                     Value = r.UserId
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "rating",
                     Value = r.RatingValue
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "comments",
                     Value = r.Comments
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "adduser",
                     Value = r.AddUser
                 },
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "adddate",
                     Value = DateTime.Now
                 }
             };
-            dbHandler.ExecuteNonQueryAsync("VuduSite_MainSite_UpdateRating", parameters);
+            _dbHandler.ExecuteNonQueryAsync("VuduSite_MainSite_UpdateRating", parameters);
         }
 
         public void DeleteRating(int ratingId)
         {
             
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            List<SqlParameter> parameters = new List<SqlParameter>()
             {
-                new MySqlParameter()
+                new SqlParameter()
                 {
                     ParameterName = "id",
                     Value = ratingId
                 }
             };
-            dbHandler.ExecuteNonQueryAsync("VuduSite_MainSite_DeleteRating", parameters);
+            _dbHandler.ExecuteNonQueryAsync("VuduSite_MainSite_DeleteRating", parameters);
         }
 
-        internal Task<List<Rating>> SelectUserRatings(int userId)
+        internal Task<IEnumerable<Rating>> SelectUserRatings(int userId)
         {
             throw new NotImplementedException();
         }
         #endregion
 
         #region Genre
-        internal Task<List<Movie>> SelectMoviesByGenre(int genreId)
+        internal Task<IEnumerable<Movie>> SelectMoviesByGenre(int genreId)
         {
             throw new NotImplementedException();
         }
-
-        internal
         #endregion
     }
 }

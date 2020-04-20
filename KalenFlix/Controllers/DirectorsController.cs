@@ -6,14 +6,14 @@ using KalenFlix.Services;
 namespace KalenFlix.Controllers
 {
     [Produces("application/json")]
-    [Route("api/directors")]
+    [Route("api/[controller]/[action]")]
     public class DirectorsController : Controller
     {
-        private DirectorServices directorServices;
+        private DirectorService directorServices;
 
         public DirectorsController()
         {
-            directorServices = new DirectorServices();
+            directorServices = new DirectorService();
         }
 
         [HttpGet("{id}")]

@@ -1,33 +1,27 @@
 ﻿using System;
-using System.Data;
+using KalenFlix.Annotations;
 
 namespace KalenFlix.Domain
 {
     public class Rating
     {
+        [DataColumn("Rating_ID")]
         public int RatingId { get; set; }
+        [DataColumn("Movie_ID")]
         public int MovieId { get; set; }
+        [DataColumn("User_ID")]
         public int UserId { get; set; }
+        [DataColumn("Rating_Value")]
         public double RatingValue { get; set; }
+        [DataColumn("Comments")]
         public string Comments { get; set; }
+        [DataColumn("Add_Date")]
         public DateTime AddDate { get; set; }
+        [DataColumn("Add_User")]
         public int AddUser { get; set; }
-        public DateTime ChgDate { get; set; }
-        public int ChgUser { get; set; }
-
-        public Rating() { }
-
-        public Rating(DataRow r)
-        {
-            RatingId = Convert.ToInt32(r["ratingid"]);
-            MovieId = Convert.ToInt32(r["movieid"]);
-            UserId = Convert.ToInt32(r["userid"]);
-            RatingValue = Convert.ToDouble(r["rating"]);
-            Comments = r["comments"]?.ToString();
-            AddDate = Convert.ToDateTime(r["adddate"]);
-            AddUser = Convert.ToInt32(r["adduser"]);
-            ChgDate = Convert.ToDateTime(r["chgdate"]);
-            ChgUser = Convert.ToInt32(r["chguser"]);
-        }
+        [DataColumn("Chg_Date")]
+        public DateTime? ChgDate { get; set; }
+        [DataColumn("Chg_User")]
+        public int? ChgUser { get; set; }
     }
 }
